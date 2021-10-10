@@ -41,6 +41,22 @@ app.get("/test-conn", (req, res) => {
     });
 });
 
+app.get("/sum", (req, res) => {
+    connection.query("SELECT count(*) as total_records FROM cows", (err, rows, fields) => {
+        if (err) throw err;
+        console.log("Cows total records: ", rows[0].total_records);
+        res.status(200).send({ total_records: rows[0].total_records });
+    });
+});
+
+app.get("/milk-sum", (req, res) => {
+    connection.query("SELECT sum(total_milk) as total_milk_sum FROM cows", (err, rows, fields) => {
+        if (err) throw err;
+        console.log("Milk total sum: ", rows[0].total_milk_sum);
+        res.status(200).send({ total_milk_sum: rows[0].total_milk_sum });
+    });
+});
+
 app.get("/cows", (req, res) => {
     connection.query("SELECT * FROM cows", (err, rows, fields) => {
         if (err) throw err;
@@ -112,7 +128,7 @@ app.delete("/cows/:id", (req, res) => {
 });
 
 app.listen(port, () =>
-    console.log(`Hello world app listening on port ${port}!`)
+    console.log(`LABAS EMILI, AŠ SERVERIS IR KLAUSAUSI ŠIO PORTO: ${port}!`)
 );
 
 
