@@ -1,6 +1,13 @@
 import express from "express";
 import mysql from "mysql";
+import cors from 'cors';
 
+const port = 3000;
+const app = express();
+
+const corsOptions = {
+    origin: "http://localhost:4200"
+};
 
 const dbConfig = {
     host: "localhost",
@@ -23,9 +30,8 @@ connection.connect((error) => {
     console.log("Successfully connected to the database.");
 });
 
-const app = express();
+app.use(cors(corsOptions));
 app.use(express.json());
-const port = 3000;
 
 app.get("/test-conn", (req, res) => {
     connection.query("SELECT 1 + 1 AS solution", (err, rows, fields) => {
@@ -88,7 +94,7 @@ app.put("/cows/:id", (req, res) => {
             console.log("updated: ", { rows });
             res.status(201).send({id: parseInt(req.params.id), ...req.body});
         }
-    );
+    ); 
 });
 
 app.delete("/cows/:id", (req, res) => {
