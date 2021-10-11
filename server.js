@@ -128,7 +128,7 @@ app.delete("/cows/:id", (req, res) => {
 });
 
 app.listen(port, () =>
-    console.log(`LABAS EMILI, AŠ SERVERIS IR KLAUSAUSI ŠIO PORTO: ${port}!`)
+    console.log(`Port: ${port}!`)
 );
 
 
